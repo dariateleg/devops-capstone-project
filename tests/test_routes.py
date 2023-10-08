@@ -146,3 +146,19 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
+
+    def test_read_no_accounts(self):
+        """Should return no accounts as no data is there yet"""
+        resp = self.client.get(f"{BASE_URL}", content_type="application/json")
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        result = resp.get_json()
+        self.assertEqual(len(result), 0)
+
+    def test_read_correct_accounts(self):
+        """Should return all 5 created accounts"""
+        self._create_accounts(5)
+        resp = self.client.get(f"{BASE_URL}", content_type="application/json")
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        result = resp.get_json()
+        self.assertEqual(len(result), 5)
+
