@@ -141,7 +141,7 @@ class TestAccountService(TestCase):
         self.assertEqual(data["address"], account.address)
         self.assertEqual(data["phone_number"], account.phone_number)
         self.assertEqual(data["date_joined"], str(account.date_joined))
-    
+
     def test_read_account_not_exists(self):
         """It should return proper 404 if no account found"""
         resp = self.client.get(
@@ -214,4 +214,3 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
-        
